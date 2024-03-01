@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LEDS</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+
+        #container{
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .leds{
+            border: solid 2px rgb(190, 190, 190);
+            padding: 13.31px;
+            margin: 10px;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            border-radius: 10px;
+
+        }
+        .leds img{
+            margin-bottom: 30px;
+        }
+        .leds input{
+            margin-bottom: 30px;
+        }
+        #pronto{
+            margin-bottom: 200px;
+            margin-top: 100px;
+            text-align: center;
+        }
+        button{
+            background: rgb(195, 195, 195);
+            border: none;
+            border-radius: 10px;
+            height: 30px;
+            color: black;
+            text-transform: uppercase;
+            box-shadow: none;
+            transition: ease-in-out all 0.3s;
+            cursor: pointer;
+        }
+        button:active{
+            box-shadow: inset 2px 2px 3px;
+        }
+
+        .titulo{
+            margin-bottom: 30px;
+            cursor: pointer;
+        }
+        #lista{
+            margin-top: 100px;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+        }
+        #lista input{
+            width: 100px;
+        }
+
+
+
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div class="leds" id="led1">
+            <img src="red_led.jpg" alt="led1" >
+            <span class="titulo">LED 1</span>
+            <span>tempo aceso(ms)</span><input type="number" min="100" max="3000" value="100" class="aceso">
+            <span>delay(ms)</span><input type="number" min="100" max="3000" value="1000" class="delay">
+            <button onclick="adicionar('led1')">ADICIONAR</button>
+
+        </div>
+        <div class="leds" id="led2">
+            <img src="green_led.png" alt="led2" >
+            <span class="titulo">LED 2</span>
+            <span >tempo aceso(ms)</span><input type="number" min="100" max="3000" value="100" class="aceso">
+            <span>delay(ms)</span><input type="number" min="100" max="3000" value="1000" class="delay">
+            <button onclick="adicionar('led2')">ADICIONAR</button>
+
+        </div>
+        <div class="leds" id="led3">
+            <img src="yellow_led.png" alt="led3" >
+            <span class="titulo">LED 3</span>
+            <span>tempo aceso(ms)</span><input type="number" min="100" max="3000" value="100" class="aceso">
+            <span>delay(ms)</span><input type="number" min="100" max="3000" value="1000" class="delay">
+            <button onclick="adicionar('led3')">ADICIONAR</button>
+
+        </div>
+        <div class="leds" id="led4">
+            <img src="blue_led.png" alt="led4" >
+            <span class="titulo">LED 4</span>
+            <span>tempo aceso(ms)</span><input type="number" min="100" max="3000" value="100" class="aceso">
+            <span>delay(ms)</span><input type="number" min="100" max="3000" value="1000" class="delay">
+            <button onclick="adicionar('led4')">ADICIONAR</button>
+
+        </div>
+        <div class="leds" id="led5">
+            <img src="red_led.jpg" alt="led5" >
+            <span class="titulo">LED 5</span>
+            <span>tempo aceso(ms)</span><input type="number" min="100" max="3000" value="100" class="aceso">
+            <span>delay(ms)</span><input type="number" min="100" max="3000" value="1000" class="delay">
+            <button onclick="adicionar('led5')">ADICIONAR</button>
+
+        </div>
+        <div class="leds" id="led6">
+            <img src="green_led.png" alt="led6" >
+            <span class="titulo">LED 6</span>
+            <span>tempo aceso(ms)</span><input type="number" min="100" max="3000" value="100" class="aceso">
+            <span>delay(ms)</span><input type="number" min="100" max="3000" value="1000" class="delay">
+            <button onclick="adicionar('led6')">ADICIONAR</button>
+
+        </div>
+        <div class="leds" id="led7">
+            <img src="yellow_led.png" alt="led7" >
+            <span class="titulo">LED 7</span>
+            <span>tempo aceso(ms)</span><input type="number" min="100" max="3000" value="100" class="aceso">
+            <span>delay(ms)</span><input type="number" min="100" max="3000" value="1000" class="delay">
+            <button onclick="adicionar('led7')">ADICIONAR</button>
+
+        </div>
+    </div>
+    <div id="lista">
+        <span id="listaitems">SEQUENCIA: <br>
+
+        </span>
+        REPETIR:<input type="number" id="repetir" value="1" onchange="setRepetir()" min="1" value="1">
+
+    </div>
+    <div id="pronto">
+        <button onclick="resetar()">RESETAR</button>
+        <button onclick="enviar()">ENVIAR PRO ARDUINO</button>
+    </div>
+    <script>
+        var acesos = [];
+        var delays = [];
+        var count = 0;
+        var ids = [];
+        repetir = 1;
+
+
+        const adicionar = (ledId) => {
+            if(count <=29){
+
+            count++;
+            const ledContainer = document.getElementById(ledId);
+
+            var active = ledContainer.querySelector('.aceso');
+            var delay = ledContainer.querySelector('.delay');
+            if(ledId == 'led1'){
+                ids.push("13");
+            }else if(ledId == 'led2'){
+                ids.push("14");
+            }else if(ledId == 'led3'){
+                ids.push("27");
+            }else if(ledId == 'led4'){
+                ids.push("26");
+            }else if(ledId == 'led5'){
+                ids.push("25");
+            }else if(ledId == 'led6'){
+                ids.push("33");
+            }else if(ledId == 'led7'){
+                ids.push("32");
+            }
+
+            acesos.push(active.value);
+            delays.push(delay.value);
+  
+
+            console.log(acesos);
+
+            var listaitems = document.querySelector('#listaitems');
+            listaitems.innerHTML+= `${ledId}, `;
+            }
+            else if(count >=30){
+                alert("o limite da sequência é 30");
+            }
+
+        }
+        const resetar = () => {
+            document.querySelector('#listaitems').innerHTML = 'SEQUENCIA: <br>';
+            acesos = [];
+            delays = [];
+            count = 0;
+            repetir = 0;
+            document.querySelector("#repetir").value = 1;
+            ids = [];
+
+
+        }
+        const setRepetir = () =>{
+            repetir = document.querySelector("#repetir").value;
+            console.log(repetir);
+        }
+
+        const enviar = () =>{
+            if(acesos.length > 0){
+                const url = 'sua-api';
+
+            const data = {
+            acesos: acesos,
+            delays: delays,
+            repetir: repetir,
+            ids: ids
+            };
+
+            const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json' 
+            },
+            body: JSON.stringify(data) 
+        };
+        fetch(url, options)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Erro na requisição: ${response.status}`);
+                }
+                return response.json(); 
+            })
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+            });
+
+            }else{
+                alert("insira uma sequencia");
+            }
+        alert("informacoes enviadas");
+        resetar();
+        }
+
+    </script>
+    
+</body>
+</html>
