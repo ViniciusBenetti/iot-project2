@@ -4,8 +4,6 @@
 #include <ArduinoJson.h>
 #include <TimeLib.h>
 #include <time.h>
-#include <secrets.h>
-
 
 #define id1 13
 #define id2 14
@@ -19,10 +17,7 @@ char ssid[] =  "";
 char password[] = "";
 char server_address[] = "";
 
-bool primeiraIteracao;
 bool ativadoList;
-bool primeiraIteracaoContinuar;
-bool continuar;
 
 HTTPClient http;
 WiFiClient wifi;
@@ -32,18 +27,14 @@ int j = 0;
 int k = 0;
 int l = 0;
 int m = 0;
-int n = 0;
-int delaySum = 0;
-int atrasos;
+
 int repetir;
 int IdValue;
-int delayAnterior;
 int acesoValue;
 int delayValue;
 int acesoList;
 int delayList;
 int ledList;
-int acesoLoop;
 
 JsonArray delays;
 JsonArray acesos;
